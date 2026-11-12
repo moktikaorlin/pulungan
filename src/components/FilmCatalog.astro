@@ -1,0 +1,230 @@
+---
+// FilmCatalog.astro - Katalog Film Interaktif dengan Filter Genre
+import { films, genres } from '../data/films';
+---
+
+<section id="catalog" class="relative py-20 border-t border-[#263042]/60 bg-[#090A0F]" aria-labelledby="catalog-heading">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+    
+    <!-- Section Header & Filter Navigation -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="max-w-xl space-y-3">
+        <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-[#161B26] px-3 py-1 text-xs font-semibold text-amber-400">
+          Showcase & Arsip Kurasi
+        </div>
+        <h2 id="catalog-heading" class="font-['Cinzel'] text-3xl font-extrabold text-[#F3F4F6] sm:text-4xl">
+          Koleksi Film Terpilih
+        </h2>
+        <p class="text-sm sm:text-base text-[#9CA3AF]">
+          Pilih kategori genre untuk menyaring riwayat tontonan dan ulasan mendalam. Klik kartu poster untuk membuka sinopsis lengkap.
+        </p>
+      </div>
+
+      <!-- Live Statistics Badge -->
+      <div class="flex items-center gap-3 text-xs text-[#9CA3AF] bg-[#161B26] border border-[#263042] px-3.5 py-2 rounded-lg self-start md:self-auto">
+        <span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
+        <span>Menampilkan <strong id="catalog-count" class="text-amber-400">{films.length}</strong> dari {films.length} film</span>
+      </div>
+    </div>
+
+    <!-- Genre Filter Tabs (Client-Side Filtering) -->
+    <div class="flex flex-wrap items-center gap-2 border-b border-[#263042] pb-4" role="tablist" aria-label="Filter Genre Film">
+      {genres.map((genre, idx) => (
+        <button
+          type="button"
+          role="tab"
+          aria-selected={idx === 0 ? "true" : "false"}
+          data-filter={genre}
+          class={`filter-btn min-h-[44px] rounded-lg px-4 py-2 text-xs sm:text-sm font-semibold transition-all focus-visible:ring-2 focus-visible:ring-amber-400 ${
+            idx === 0
+              ? 'bg-amber-500 text-[#090A0F] font-bold shadow-md shadow-amber-500/10'
+              : 'bg-[#161B26] text-[#9CA3AF] border border-[#263042] hover:border-amber-500/40 hover:text-[#F3F4F6]'
+          }`}
+        >
+          {genre}
+        </button>
+      ))}
+    </div>
+
+    <!-- Film Cards Grid -->
+    <div id="films-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+      {films.map((film) => (
+        <article
+          data-genre={film.genre}
+          data-film={JSON.stringify(film)}
+          class="film-card group relative flex flex-col justify-between overflow-hidden rounded-xl border border-[#263042] bg-[#161B26] shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/50 hover:shadow-2xl hover:shadow-black/70"
+        >
+          <!-- Poster Image with Aspect Ratio -->
+          <div class="relative aspect-[2/3] w-full overflow-hidden bg-[#090A0F]">
+            <img
+              src={film.poster}
+              alt={`Poster film ${film.title} (${film.year}) disutradarai ${film.director}`}
+              width="400"
+              height="600"
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#161B26] via-transparent to-transparent opacity-90"></div>
+
+            <!-- Genre Tag -->
+            <div class="absolute top-3 left-3 rounded-md bg-[#090A0F]/85 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-amber-400 border border-amber-500/20">
+              {film.genre}
+            </div>
+
+            <!-- Rating Badge -->
+            <div class="absolute top-3 right-3 flex items-center gap-1 rounded-md bg-amber-500 px-2.5 py-0.5 text-xs font-bold text-[#090A0F] shadow-sm">
+              <span>★</span>
+              <span>{film.rating}</span>
+            </div>
+
+            <!-- Quick Overlay CTA on Hover -->
+            <div class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+              <button
+                type="button"
+                class="view-detail-btn inline-flex min-h-[44px] items-center justify-center rounded-lg bg-amber-500 px-4 py-2 text-xs font-bold text-[#090A0F] shadow-lg hover:bg-amber-400 focus-visible:ring-2 focus-visible:ring-amber-300"
+                aria-label={`Buka detail dan ulasan film ${film.title}`}
+              >
+                Buka Sinopsis & Ulasan
+              </button>
+            </div>
+          </div>
+
+          <!-- Card Content Info -->
+          <div class="flex-1 p-5 flex flex-col justify-between space-y-3">
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-xs text-[#9CA3AF]">
+                <span>{film.director}</span>
+                <span>{film.year}</span>
+              </div>
+              <h3 class="font-['Outfit'] text-lg font-bold text-[#F3F4F6] group-hover:text-amber-400 transition-colors line-clamp-1">
+                {film.title}
+              </h3>
+              <p class="text-xs text-[#9CA3AF] line-clamp-2 leading-relaxed">
+                {film.synopsis}
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-[#263042]/70 flex items-center justify-between gap-2">
+              <span class="text-[11px] text-[#9CA3AF]">
+                {film.duration}
+              </span>
+
+              <button
+                type="button"
+                class="view-detail-btn text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 rounded px-1.5 py-1"
+              >
+                Detail Film &rarr;
+              </button>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Empty State (R-27) -->
+    <div id="catalog-empty-state" class="hidden text-center py-16 px-4 rounded-xl border border-dashed border-[#263042] bg-[#161B26]/40 space-y-4">
+      <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#161B26] border border-[#263042] text-[#9CA3AF]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+        </svg>
+      </div>
+      <h3 class="font-['Outfit'] text-lg font-bold text-[#F3F4F6]">
+        Tidak Ada Film yang Cocok
+      </h3>
+      <p class="text-sm text-[#9CA3AF] max-w-md mx-auto">
+        Kategori film yang Anda pilih belum memiliki arsip tontonan saat ini. Silakan pilih kategori lain atau reset filter.
+      </p>
+      <button
+        id="reset-filter-btn"
+        type="button"
+        class="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-amber-500 px-5 py-2 text-xs font-bold text-[#090A0F] hover:bg-amber-400"
+      >
+        Tampilkan Semua Film
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Client-Side Film Filtering & Modal Dispatcher
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const filmCards = document.querySelectorAll<HTMLElement>('.film-card');
+  const countEl = document.getElementById('catalog-count');
+  const emptyState = document.getElementById('catalog-empty-state');
+  const resetBtn = document.getElementById('reset-filter-btn');
+
+  function applyFilter(selectedGenre: string) {
+    let visibleCount = 0;
+
+    filmCards.forEach((card) => {
+      const cardGenre = card.getAttribute('data-genre');
+      if (selectedGenre === 'Semua' || cardGenre === selectedGenre) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    if (countEl) {
+      countEl.textContent = visibleCount.toString();
+    }
+
+    if (emptyState) {
+      if (visibleCount === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+    }
+
+    // Update buttons styling
+    filterBtns.forEach((btn) => {
+      const btnFilter = btn.getAttribute('data-filter');
+      if (btnFilter === selectedGenre) {
+        btn.setAttribute('aria-selected', 'true');
+        btn.className = 'filter-btn min-h-[44px] rounded-lg px-4 py-2 text-xs sm:text-sm font-bold bg-amber-500 text-[#090A0F] shadow-md shadow-amber-500/10 transition-all focus-visible:ring-2 focus-visible:ring-amber-400';
+      } else {
+        btn.setAttribute('aria-selected', 'false');
+        btn.className = 'filter-btn min-h-[44px] rounded-lg px-4 py-2 text-xs sm:text-sm font-semibold bg-[#161B26] text-[#9CA3AF] border border-[#263042] hover:border-amber-500/40 hover:text-[#F3F4F6] transition-all focus-visible:ring-2 focus-visible:ring-amber-400';
+      }
+    });
+  }
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const genre = btn.getAttribute('data-filter') || 'Semua';
+      applyFilter(genre);
+    });
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    applyFilter('Semua');
+  });
+
+  // Modal Open Handlers
+  filmCards.forEach((card) => {
+    const rawData = card.getAttribute('data-film');
+    if (!rawData) return;
+    
+    try {
+      const filmData = JSON.parse(rawData);
+
+      // Trigger detail view when clicking view detail button or card
+      const detailButtons = card.querySelectorAll('.view-detail-btn');
+      detailButtons.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          window.dispatchEvent(new CustomEvent('open-film-modal', { detail: filmData }));
+        });
+      });
+
+      card.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('open-film-modal', { detail: filmData }));
+      });
+    } catch (e) {
+      console.error('Gagal membaca data film:', e);
+    }
+  });
+</script>

@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #090a0f;
+  --color-surface: #161b26;
+  --color-surface-hover: #1f2737;
+  --color-surface-elevated: #232c3d;
+  --color-primary: #f59e0b;
+  --color-primary-hover: #d97706;
+  --color-secondary: #ec4899;
+  --color-secondary-hover: #db2777;
+  --color-text-main: #f3f4f6;
+  --color-text-muted: #9ca3af;
+  --color-border: #263042;
+  --color-border-subtle: #1b2331;
+
+  --font-display: 'Cinzel', serif;
+  --font-heading: 'Outfit', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    background-color: #090a0f;
+    color: #f3f4f6;
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #090a0f;
+  }
+
+  /* Accessible interactive cursors */
+  a[href],
+  button,
+  summary,
+  select,
+  label[for],
+  input[type="checkbox"],
+  input[type="radio"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  input:disabled,
+  select:disabled,
+  textarea:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Accessible focus rings */
+  :focus-visible {
+    outline: 2px solid #f59e0b;
+    outline-offset: 2px;
+  }
+
+  /* Film grain subtle overlay effect for cinematic atmosphere */
+  .cinematic-backdrop {
+    background: radial-gradient(circle at 50% 15%, rgba(245, 158, 11, 0.08) 0%, rgba(22, 27, 38, 0.4) 45%, rgba(9, 10, 15, 1) 85%);
+  }
+}

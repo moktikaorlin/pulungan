@@ -1,0 +1,119 @@
+---
+// Footer.astro - CineVault Footer Section
+---
+
+<footer class="border-t border-[#263042] bg-[#090A0F] py-16" aria-label="Footer Navigasi dan Hak Cipta">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+    
+    <!-- 3-Column Layout -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
+      
+      <!-- Column 1: Brand & Identity (5 cols) -->
+      <div class="md:col-span-5 space-y-4">
+        <a href="#" class="inline-flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-lg" aria-label="Kembali ke atas beranda CineVault">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#161B26] border border-amber-500/30 text-amber-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z" />
+            </svg>
+          </div>
+          <span class="font-['Cinzel'] text-xl font-extrabold tracking-wider text-[#F3F4F6]">
+            CINE<span class="text-amber-400">VAULT</span>
+          </span>
+        </a>
+        <p class="text-xs sm:text-sm text-[#9CA3AF] max-w-sm leading-relaxed">
+          Platform katalog film kurasi, jurnal riwayat menonton bebas distraksi, dan ruang dialog sinema independen bersama kurator via WhatsApp.
+        </p>
+        <p class="text-xs text-[#9CA3AF]/70">
+          Surabaya Creative Hub, Indonesia
+        </p>
+      </div>
+
+      <!-- Column 2: Quick Links (3 cols) -->
+      <div class="md:col-span-3 space-y-3">
+        <h3 class="font-['Outfit'] text-xs font-bold uppercase tracking-widest text-amber-400">
+          Navigasi Cepat
+        </h3>
+        <ul class="space-y-2 text-xs sm:text-sm text-[#9CA3AF]">
+          <li>
+            <a href="#catalog" class="hover:text-amber-400 transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 rounded py-0.5">
+              Katalog Film & Filter
+            </a>
+          </li>
+          <li>
+            <a href="#lists" class="hover:text-amber-400 transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 rounded py-0.5">
+              Daftar Kurasi Tematik
+            </a>
+          </li>
+          <li>
+            <a href="#community" class="hover:text-amber-400 transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 rounded py-0.5">
+              Ulasan Komunitas & Kritikus
+            </a>
+          </li>
+          <li>
+            <a href="#contact" class="hover:text-amber-400 transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 rounded py-0.5">
+              Kontak & Lokasi Hub
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Platform Alternatif & Komunitas (4 cols) -->
+      <div class="md:col-span-4 space-y-3">
+        <h3 class="font-['Outfit'] text-xs font-bold uppercase tracking-widest text-amber-400">
+          Platform Alternatif & Komunitas
+        </h3>
+        <p class="text-xs text-[#9CA3AF] leading-relaxed">
+          Temukan arsip kurasi kami di jejaring sinema terbuka dan media sosial kurator:
+        </p>
+        <div class="flex flex-wrap gap-2 pt-1">
+          <a
+            href="https://letterboxd.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-lg border border-[#263042] bg-[#161B26] px-3 py-1.5 text-xs text-[#F3F4F6] hover:border-amber-400 hover:text-amber-300 transition-all focus-visible:ring-2 focus-visible:ring-amber-400"
+          >
+            Letterboxd
+          </a>
+          <a
+            href="https://trakt.tv"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-lg border border-[#263042] bg-[#161B26] px-3 py-1.5 text-xs text-[#F3F4F6] hover:border-amber-400 hover:text-amber-300 transition-all focus-visible:ring-2 focus-visible:ring-amber-400"
+          >
+            Trakt.tv
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-lg border border-[#263042] bg-[#161B26] px-3 py-1.5 text-xs text-[#F3F4F6] hover:border-amber-400 hover:text-amber-300 transition-all focus-visible:ring-2 focus-visible:ring-amber-400"
+          >
+            Instagram Sinema
+          </a>
+          <a
+            href="https://wa.me/6281234567890"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-1.5 text-xs text-emerald-400 hover:bg-emerald-500/20 transition-all focus-visible:ring-2 focus-visible:ring-amber-400"
+          >
+            WhatsApp Admin
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Copyright Divider & Notice -->
+    <div class="border-t border-[#263042]/70 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9CA3AF]">
+      <p>
+        &copy; 2026 CineVault. Dibangun menggunakan Astro &amp; Tailwind CSS v4.
+      </p>
+      <div class="flex items-center gap-4">
+        <span>Arsip Sinema Non-Komersial</span>
+        <span>•</span>
+        <span>Standar Aksesibilitas WCAG AA</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
